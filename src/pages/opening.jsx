@@ -24,13 +24,6 @@ const Opening = () => {
                             Get Started Today
                             </Link>
                         </Button>
-                        
-                        <Button
-                            variant="rounded-3xl bg-indigo-600 hover:bg-white hover:text-indigo-600 py-2 px-6 lg:py-3 text-sm">
-                            <Link to="/admin">
-                            Admin
-                            </Link>
-                        </Button>
                         </div>
                     </div>
                     <div className="overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-[80%] lg:mt-20">

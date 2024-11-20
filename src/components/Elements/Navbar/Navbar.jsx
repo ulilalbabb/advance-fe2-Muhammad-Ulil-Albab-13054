@@ -11,7 +11,7 @@ const Navbar = () => {
                 <div className="flex text-xs gap-4 lg:gap-12 md:gap-6 sm:text-sm lg:text-lg md:text-xl text-white ">
                     <a href="#" className="hover:underline">Series</a>
                     <a href="#" className="hover:underline">Film</a>
-                    <a href="#" className="hover:underline">Daftar Saya</a>
+                    <a href="/admin" className="hover:underline">Daftar Saya</a>
                 </div>
             </div>
             <div className="flex justify-center items-center gap-1">
