@@ -1,72 +1,25 @@
 import { useEffect, useState } from "react";
-import getMovies from "../services/api/movie-endpoint";
-import axios from "axios";
+import { getMovies } from "../redux/movieReducer";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
-
-const BASE_URL = "https://671c56602c842d92c382a39e.mockapi.io/api/movie/movie";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteMovie } from "../redux/movieReducer";
 
 const Admin = () => {
-  const [movies, setMovies] = useState([]);
-  const [edit, setEdit] = useState(false);
-  const [currentMovie, setCurrentMovie] = useState({
-      id: null,
-      name: "",
-      rating: "",
-      series: "",
-  });
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies);
 
   useEffect(() => {
-    getMovies(setMovies);
-  }), [];
-
-  const handleChange = (e) => {
-    setCurrentMovie({
-      ...currentMovie,
-      [e.target.name]: e.target.value,
-    });
-  };
+    dispatch(getMovies());
+  }, [dispatch]);
 
   const handleDelete = async (id) => {
-    await axios.delete(`${BASE_URL}/${id}`);
-    getMovies(setMovies);
+    if (window.confirm("Are you sure you want to delete this movie?")) {
+      await dispatch(deleteMovie(id));
+    }
     toast.success("Movie deleted successfully!");
   };
-
-  const handleEdit = (movie) => {
-    setEdit(true);
-    setCurrentMovie({
-      id: movie.id,
-      name: movie.name,
-      rating: movie.rating,
-      series: movie.series,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const movieData = {
-      ...currentMovie,
-      rating: currentMovie.rating,
-    }
-
-    if (currentMovie.id) {
-      await axios.put(`${BASE_URL}/${currentMovie.id}`, movieData);
-      toast.success("Movie updated successfully!");
-    } else {
-      await axios.post(BASE_URL, movieData);
-      toast.success("Movie added successfully!");
-    }
-
-    setCurrentMovie({
-      id: null,
-      name: "",
-      rating: "",
-      series: "",
-    });
-    setEdit(false);
-    };
 
   return (
     <section>
