@@ -4,60 +4,61 @@ import axios from "axios";
 export const API_URL = "https://671c56602c842d92c382a39e.mockapi.io/api/movie/movie";
 
 export const getMovies = createAsyncThunk("movies/getMovies", async () => {
-    try {
-        const response = await axios.get(API_URL);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-});
+    const response = await axios.get(API_URL);
+    return response.data;
+})
 
 export const addMovie = createAsyncThunk("movies/addMovie", async (movie) => {
-    try {
-        const response = await axios.post(API_URL, movie);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-});
+    const response = await axios.post(API_URL, movie);
+    return response.data;
+})
 
 export const deleteMovie = createAsyncThunk("movies/deleteMovie", async (id) => {
-    try {
-        await axios.delete(`${API_URL}/${id}`);
-        return id;
-    } catch (error) {
-        console.log(error);
-    }
-});
+    await axios.delete(`${API_URL}/${id}`);
+    return id;
+})
 
-export const editMovie = createAsyncThunk("movies/editMovie", async ({id, name, series, rating}) => {
-    try {
-        const response = await axios.put(`${API_URL}/${id}`, {name, series, rating});
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-});
+export const updateMovie = createAsyncThunk("movies/updateMovie", async ({ id, movie }) => {
+    const response = await axios.put(`${API_URL}/${id}`, movie);
+    return response.data;
+})
 
 const moviesSlice = createSlice({
     name: "movies",
-    initialState: [],
-    extraReducers: (builder) => {
-        builder
+    initialState: {
+        movies: [],
+        loading: false,
+        error: null
+    },
+    reducers: {
+
+    },
+    extraReducers: (builder) => { 
+        builder.addCase(getMovies.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
         .addCase(getMovies.fulfilled, (state, action) => {
-            return action.payload;
+            state.loading = false;
+            state.movies = action.payload;
+        })
+        .addCase(getMovies.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
         })
         .addCase(addMovie.fulfilled, (state, action) => {
-            state.push(action.payload);
+            state.movies.push(action.payload);
         })
         .addCase(deleteMovie.fulfilled, (state, action) => {
-            return state.filter((movie) => movie.id !== action.payload);
+            state.movies = state.movies.filter((movie) => movie.id !== action.payload);
         })
-        .addCase(editMovie.fulfilled, (state, action) => {
-            const index = state.findIndex((movie) => movie.id === action.payload.id);
-            state[index] = action.payload;
-        });
-    },
+        .addCase(updateMovie.fulfilled, (state, action) => {
+            const index = state.movies.findIndex((movie) => movie.id === action.payload.id);
+            if (index !== -1) {
+                state.movies[index] = action.payload;
+            }
+        })
+       },
 });
 
 export default moviesSlice.reducer;

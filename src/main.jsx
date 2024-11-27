@@ -10,8 +10,8 @@ import HomePage from './pages/homepage'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import AdminPage from './pages/admin'
-import UseCreate from './components/Elements/features/useCreate'
-import UseEdit from './components/Elements/features/useEdit'
+// import UseCreate from './components/Elements/features/useCreate'
+// import UseEdit from './components/Elements/features/useEdit'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
@@ -36,14 +36,14 @@ const router = createBrowserRouter([
     path: '/admin',
     element: <AdminPage />,
   },
-  {
-    path: '/create',
-    element: <UseCreate/>
-  },
-  {
-    path: '/edit/:id',
-    element: <UseEdit/>
-  }
+  // {
+  //   path: '/create',
+  //   element: <UseCreate/>
+  // },
+  // {
+  //   path: '/edit/:id',
+  //   element: <UseEdit/>
+  // }
 ])
 
 createRoot(document.getElementById('root')).render(
