@@ -42,7 +42,7 @@ const CardLayouts = (props) => {
     },
 ]
 
-const ITEM = 360;
+const ITEM = 240;
 const [position, setPosition] = useState(0);
 const containerRef = useRef();
 

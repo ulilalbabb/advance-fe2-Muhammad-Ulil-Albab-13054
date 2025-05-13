@@ -2,9 +2,9 @@ const NewReleaseCards = (props) => {
     const { image } = props
     return (
         <div>
-            <div className="relative w-[234px] lg:w-[365px]">
-                <div className="relative mt-3">
-                    <img src={image} className="rounded-xl w-full" alt="" />
+            <div className="relative w-[220px] lg:w-[320px]">
+                <div className="relative overflow-hidden rounded-xl mt-3">
+                    <img src={image} className="hover:scale-105 duration-500 transition-transform w-full" alt="new-release-movie" />
                 </div>
             </div>
         </div>

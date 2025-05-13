@@ -28,7 +28,7 @@ const NewReleaseCardsLayouts = (props) => {
         },
 
     ];
-    const ITEM = 200;
+    const ITEM = 240;
     const [position, setPosition] = useState(0);
     const containerRef = useRef();
 
