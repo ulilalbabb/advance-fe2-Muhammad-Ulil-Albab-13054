@@ -8,7 +8,6 @@ import RegisterPage from './pages/register'
 import Opening from './pages/opening'
 import HomePage from './pages/homepage'
 import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
 import AdminPage from './pages/admin'
 import { Provider } from 'react-redux'
 import store from './redux/store'
@@ -40,7 +39,6 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
     <RouterProvider router={router} />
-    <ToastContainer />
     </Provider>
   </StrictMode>
 )
